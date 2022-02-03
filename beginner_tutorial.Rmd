@@ -17,6 +17,10 @@ library(rnoaa)
 
 # Open Data Science
 
+## What is Open Data and Reproducible Science?
+
+Open data research aims to transform research by pushing change in the way that research is carried out and disseminated by digital tools. Open data should be 
+
 
 ## Importing Data From Cardinals
 
