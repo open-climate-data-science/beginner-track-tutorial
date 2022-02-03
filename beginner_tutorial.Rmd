@@ -1,0 +1,93 @@
+---
+title: "Beginner Tutorial"
+author: "Livia Popa"
+date: "1/28/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(tidyverse)
+library(rnoaa)
+# uploads library info
+```
+
+# Beginner Tutorial
+
+# Open Data Science
+
+
+## Importing Data From Cardinals
+
+Text on importing **Cardinals Data**.
+
+Talk about str and functions like that.
+
+```{r}
+library(readr)
+cardinal <- read_csv("cardinal_data.csv")
+#cardinal%>%filter(colnames(cardinal)!="MV")
+```
+
+
+```{r}
+cardinal_data <- read_csv("cardinal_data.csv", 
+     col_types = list(`Average Air Temperature (F)` = col_number(), 
+         `Maximum Air Temperature (F)` = col_number(), 
+         `Minimum Air Temperature (F)` = col_number(), 
+         `Average Experimental Leaf Wetness (mV)` = col_number(), 
+         `Total Precipitation (in)` = col_number(), 
+         `Average Relative Humidity (%)` = col_number(), 
+         `Average Soil Moisture (m3/m3)` = col_number(), 
+         `Average Soil Temperature (F)` = col_number(), 
+         `Average Solar Radiation (W/m2)` = col_number(), 
+         `Average Station Pressure (mb)` = col_number()))
+
+cardinal_data<-drop_na(cardinal_data)
+str(cardinal_data)
+cardinal_data$Date<-as.Date(cardinal_data$Date, tryFormats= c("%m/%d/%y"))
+view(cardinal_data)
+
+colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
+```
+
+
+## Plotting Basic 
+
+Text on *plotting*. 
+
+Here is a good link: https://www.rstudio.com/resources/cheatsheets/
+
+
+```{r}
+ggplot(cardinal_data,aes(x= date ,y= AvgLw))+ geom_point()
+```
+
+
+```{r}
+#livia
+ggplot(cardinal_data,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+
+ggplot(cardinal_data,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
+```
+
+
+```{r}
+#me 
+ggplot(cardinal_data,aes(x=date,y=AvgT))+geom_line(aes(col=IfRain))
+```
+
+
+
+
+### Making new Data
+
+```{r}
+#me making new data
+
+cardinal_data$IfRain<- (cardinal_data$Tprep>0)
+cardinal_data$IfRain<-as.factor(as.integer(cardinal_data$IfRain))
+plot(cardinal_data$IfRain)
+```
+
