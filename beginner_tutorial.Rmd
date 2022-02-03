@@ -19,7 +19,12 @@ library(rnoaa)
 
 ## What is Open Data and Reproducible Science?
 
+Open data documents and shares research data openly for re-use.
+
 Open data research aims to transform research by pushing change in the way that research is carried out and disseminated by digital tools. Open data should be 
+- Publicly available: Open data is freely available on the internet.
+- Reusable: Proper licensing is essential for research outputs so that users know any limitations on re-use
+- Transparent: With appropriate metadata to explain how research output was produced and what it contains
 
 
 ## Importing Data From Cardinals
