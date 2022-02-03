@@ -21,7 +21,8 @@ library(rnoaa)
 
 Open data documents and shares research data openly for re-use.
 
-Open data research aims to transform research by pushing change in the way that research is carried out and disseminated by digital tools. Open data should be 
+Open data research aims to transform research by pushing change in the way that research is carried out and disseminated by digital tools. Open data should be:
+
 - Publicly available: Open data is freely available on the internet.
 - Reusable: Proper licensing is essential for research outputs so that users know any limitations on re-use
 - Transparent: With appropriate metadata to explain how research output was produced and what it contains
@@ -63,6 +64,19 @@ colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","
 ```
 
 
+
+## Making new Data
+
+```{r}
+#me making new data
+
+cardinal_data$IfRain<- (cardinal_data$Tprep>0)
+cardinal_data$IfRain<-as.factor(as.integer(cardinal_data$IfRain))
+plot(cardinal_data$IfRain)
+```
+
+
+
 ## Plotting Basic 
 
 Text on *plotting*. 
@@ -91,14 +105,4 @@ ggplot(cardinal_data,aes(x=date,y=AvgT))+geom_line(aes(col=IfRain))
 
 
 
-
-### Making new Data
-
-```{r}
-#me making new data
-
-cardinal_data$IfRain<- (cardinal_data$Tprep>0)
-cardinal_data$IfRain<-as.factor(as.integer(cardinal_data$IfRain))
-plot(cardinal_data$IfRain)
-```
 
