@@ -58,6 +58,7 @@ str(cardinal_data)
 cardinal_data$Date<-as.Date(cardinal_data$Date, tryFormats= c("%m/%d/%y"))
 view(cardinal_data)
 
+#changes col names
 colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
 ```
 
@@ -65,6 +66,7 @@ colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","
 ## Plotting Basic 
 
 Text on *plotting*. 
+We will be using a fancy package called ggplot2.
 
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
