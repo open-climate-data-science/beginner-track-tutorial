@@ -119,7 +119,7 @@ We will be using a package called ggplot2.
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
 ```{r}
-ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
+ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point(aes(col=month))
 ```
 
 
@@ -133,7 +133,10 @@ ggplot(cardinal,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
 
 ```{r}
 #me 
-ggplot(cardinal,aes(x=date,y=AvgT))+geom_line(aes(col=IfRain))
+ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ")
+```
+```{r}
+ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 ```
 
 
