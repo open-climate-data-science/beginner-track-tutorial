@@ -1,6 +1,6 @@
 ---
 title: "Beginner Tutorial"
-author: "Livia Popa"
+author: "Livia Popa & Nick Gawron"
 date: "1/28/2022"
 output: html_document
 ---
@@ -41,7 +41,7 @@ cardinal <- read_csv("cardinal_data.csv")
 ```
 
 
-```{r}
+```{r echo=F}
 cardinal_data <- read_csv("cardinal_data.csv", 
      col_types = list(`Average Air Temperature (F)` = col_number(), 
          `Maximum Air Temperature (F)` = col_number(), 
