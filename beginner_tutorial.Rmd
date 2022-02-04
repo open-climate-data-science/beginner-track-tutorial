@@ -30,9 +30,18 @@ Open data research aims to transform research by pushing change in the way that 
 
 ## Importing Data From Cardinals
 
-Text on importing **Cardinals Data**.
+- Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
+- Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
 
-Talk about str and functions like that.
+## Using data inspection functions
+
+### Data Types
+
+- Date
+- Str
+- Char
+- Double 
+- Num
 
 ```{r}
 library(readr)
