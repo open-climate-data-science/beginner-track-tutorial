@@ -83,15 +83,29 @@ cardinal_data
 
 ```
 
+
+
+
+## Numerical Summaries
+
+
+
+
+
 ```{r}
 # base plots in R, categorical variables
 #does a count
-plot(cardinal_data$IfRain)
+plot(cardinal_$IfRain)
 ```
 
 ## Plotting Basic 
 
+<<<<<<< Updated upstream
 We will be using a package called ggplot2.
+=======
+
+We will be using a fancy package called ggplot2.
+>>>>>>> Stashed changes
 
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
