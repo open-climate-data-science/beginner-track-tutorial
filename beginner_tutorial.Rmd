@@ -12,9 +12,8 @@ library(rnoaa)
 # uploads library info
 ```
 
-# Beginner Tutorial
 
-# Open Data Science
+## Open Data Science
 
 ## What is Open Data and Reproducible Science?
 
@@ -50,7 +49,7 @@ cardinal <- read_csv("cardinal_data.csv")
 
 
 ```{r echo=F}
-cardinal_data <- read_csv("cardinal_data.csv", 
+cardinal <- read_csv("cardinal_data.csv", 
      col_types = list(`Average Air Temperature (F)` = col_number(), 
          `Maximum Air Temperature (F)` = col_number(), 
          `Minimum Air Temperature (F)` = col_number(), 
@@ -62,13 +61,13 @@ cardinal_data <- read_csv("cardinal_data.csv",
          `Average Solar Radiation (W/m2)` = col_number(), 
          `Average Station Pressure (mb)` = col_number()))
 
-cardinal_data<-drop_na(cardinal_data)
-str(cardinal_data)
-cardinal_data$Date<-as.Date(cardinal_data$Date, tryFormats= c("%m/%d/%y"))
-view(cardinal_data)
+cardinal<-drop_na(cardinal)
+str(cardinal)
+cardinal$Date<-as.Date(cardinal$Date, tryFormats= c("%m/%d/%y"))
+view(cardinal)
 
 #changes col names
-colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
+colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
 ```
 
 
@@ -77,9 +76,9 @@ colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","
 ```{r}
 #me making new data
 
-cardinal_data$IfRain<- (cardinal_data$Tprep>0)
-cardinal_data$IfRain<-as.factor(as.integer(cardinal_data$IfRain))
-cardinal_data 
+cardinal$IfRain<- (cardinal$Tprep>0)
+cardinal$IfRain<-as.factor(as.integer(cardinal$IfRain))
+cardinal
 
 ```
 
@@ -95,7 +94,7 @@ cardinal_data
 ```{r}
 # base plots in R, categorical variables
 #does a count
-plot(cardinal_$IfRain)
+plot(cardinal$IfRain)
 ```
 
 ## Plotting Basic 
@@ -110,21 +109,21 @@ We will be using a fancy package called ggplot2.
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
 ```{r}
-ggplot(cardinal_data,aes(x= date ,y= AvgLw))+ geom_point()
+ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 ```
 
 
 ```{r}
 #livia
-ggplot(cardinal_data,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
 
-ggplot(cardinal_data,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
+ggplot(cardinal,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
 ```
 
 
 ```{r}
 #me 
-ggplot(cardinal_data,aes(x=date,y=AvgT))+geom_line(aes(col=IfRain))
+ggplot(cardinal,aes(x=date,y=AvgT))+geom_line(aes(col=IfRain))
 ```
 
 
