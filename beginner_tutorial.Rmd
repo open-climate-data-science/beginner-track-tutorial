@@ -101,6 +101,8 @@ str(cardinal)
 
 
 
+## Plotting Basic 
+
 
 ```{r}
 # base plots in R, categorical variables
@@ -108,14 +110,11 @@ str(cardinal)
 plot(cardinal$IfRain)
 ```
 
-## Plotting Basic 
 
-<<<<<<< Updated upstream
+
+
 We will be using a package called ggplot2.
-=======
 
-We will be using a fancy package called ggplot2.
->>>>>>> Stashed changes
 
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
