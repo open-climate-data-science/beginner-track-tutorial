@@ -73,7 +73,6 @@ colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","
 ```
 
 
-
 ## Making new Data
 
 ```{r}
@@ -85,14 +84,11 @@ plot(cardinal_data$IfRain)
 ```
 
 
-
 ## Plotting Basic 
 
-Text on *plotting*. 
-We will be using a fancy package called ggplot2.
+We will be using a package called ggplot2.
 
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
-
 
 ```{r}
 ggplot(cardinal_data,aes(x= date ,y= AvgLw))+ geom_point()
