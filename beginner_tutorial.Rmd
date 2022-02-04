@@ -9,6 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 library(ggplot2)
 library(tidyverse)
 library(rnoaa)
+library(lubridate)
 # uploads library info
 ```
 
@@ -80,6 +81,16 @@ cardinal$IfRain<- (cardinal$Tprep>0)
 cardinal$IfRain<-as.factor(as.integer(cardinal$IfRain))
 cardinal
 
+```
+
+```{r}
+# month variable 
+
+cardinal$month<-month(cardinal$date)
+cardinal$month<-as.factor(cardinal$month)
+
+# str factor
+str(cardinal)
 ```
 
 
