@@ -1,7 +1,6 @@
 ---
 title: "Beginner Tutorial"
 author: "Livia Popa & Nick Gawron"
-date: "1/28/2022"
 output: html_document
 ---
 
@@ -81,9 +80,15 @@ colnames(cardinal_data)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","
 
 cardinal_data$IfRain<- (cardinal_data$Tprep>0)
 cardinal_data$IfRain<-as.factor(as.integer(cardinal_data$IfRain))
-plot(cardinal_data$IfRain)
+cardinal_data 
+
 ```
 
+```{r}
+# base plots in R, categorical variables
+#does a count
+plot(cardinal_data$IfRain)
+```
 
 
 ## Plotting Basic 
