@@ -74,6 +74,8 @@ colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm
 
 ## Making new Data
 
+### When does it Rain ? 
+
 ```{r}
 #me making new data
 
@@ -83,6 +85,11 @@ cardinal
 
 ```
 
+
+
+### Month Factor variable
+
+- Factor variable is a category or bin we can place a value in. 
 
 ```{r}
 
@@ -94,6 +101,12 @@ cardinal$month<-as.factor(cardinal$month)
 str(cardinal)
 ```
 
+
+###  Numerical Variable, Rain Difference
+
+```{r}
+cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
+```
 
 
 
@@ -129,7 +142,7 @@ ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 #livia
 ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
 
-ggplot(cardinal,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
+#ggplot(cardinal,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
 ```
 
 
@@ -143,4 +156,9 @@ ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 
 
 
+```{r}
+ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
+
+
+```
 
