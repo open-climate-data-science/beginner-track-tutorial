@@ -83,9 +83,10 @@ cardinal
 
 ```
 
-```{r}
-# month variable 
 
+```{r}
+
+# month variable 
 cardinal$month<-month(cardinal$date)
 cardinal$month<-as.factor(cardinal$month)
 
@@ -119,7 +120,8 @@ We will be using a package called ggplot2.
 Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
 ```{r}
-ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point(aes(col=month))
+ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
+#col=month
 ```
 
 
