@@ -1,7 +1,7 @@
 ---
 title: "Beginner Tutorial"
 author: "Livia Popa & Nick Gawron"
-output: html_document
+output: pdf_document
 ---
 
 ```{r setup, include=FALSE}
@@ -34,6 +34,9 @@ Open data research aims to transform research by pushing change in the way that 
 
 ## Using data inspection functions
 
+- `str` is a powerful function that allows you to determine what kind of variable we are working with 
+
+
 ### Data Types
 
 - Date
@@ -47,6 +50,8 @@ library(readr)
 cardinal <- read_csv("cardinal_data.csv")
 #cardinal%>%filter(colnames(cardinal)!="MV")
 ```
+
+
 
 
 ```{r echo=F}
@@ -160,43 +165,61 @@ table(cardinal$month,cardinal$IfRain)
 ```{r}
 # base plots in R, categorical variables
 #does a count
-plot(cardinal$IfRain)
+plot(cardinal$IfRain,main ='Frequency Bar Plot of Rain Occurance',xlab="Occurence of Rain (0-No, 1- Yes)",ylab = "Number of Days")
+
 ```
 
 
 
 
-- We will be using a package called ggplot2.
-
+- We will be using a package called `ggplot2`.
 
 - Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
-- Note we have not even had a title or label specs yet 
+- Two basic functions: ggplot() & geom_plottype
+  - Note we have not even had a title or label specs yet 
 
 ```{r}
+# first ggplot figure
+
 ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
-#col=month
 ```
 
 
-```{r}
-#livia
-ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
-
-#ggplot(cardinal,aes(x=date,y=AvgT,fill=IfRain))+geom_area()
-```
-
-
-```{r}
-#me 
-ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ")
-```
 
 - Observe correlation and possible trend numerical variables
 
-- options are very versatile inside a +geom_statement
+- Using cheatsheet, we can find a lot more plot types and options!
+
+  - Note the use of `labs` statement
+
 
 ```{r}
+ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ", x= "Date")
+```
+
+- options are very versatile inside a `+geom_statement()`
+
+- We can use the cheatsheet to find out information about this 
+
+- Note how we change atributes inside the `aes` statment
+
+```{r}
+
+ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+
+# title and all labels included in one more statement 
+```
+
+- One popular option is to color-code based off of a categorial / factor variable 
+
+- See the difference when we include `aes(col=month)`
+
+- Below is a scatter plot
+
+```{r}
+
+# general plot
 ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
 
 # coloring by month to observe trends
@@ -204,6 +227,7 @@ ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 ```
 
 
+- We can also use categorical variables on the x-axis
 
 ```{r}
 
@@ -213,14 +237,29 @@ ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 ```
 
 
+- Box-plots are cumbersome and not super helpful in visalization. 
+
+
+### How could we make this boxplot better? 
+
+- Note we are looking at average daily tempurature
+
+```{r}
+
+# + geom_boxplot is a great tool to observe spreads
+
+ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
+```
+
 
 ### Fancy Plot Time
 
 
-
 - Inspiration from ggridges documentation
 
-- We want to stylize the boxplot from the aobve statement
+- We want to stylize the boxplot from the above statement       
+
+- We will be using a few libraries here: remeber to use `install.packages("library_name")` first before running the library statment. 
 
 ```{r}
 
@@ -228,18 +267,28 @@ ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 library(viridis)     ## color palette
 library(ggjoy)       ## ridges
 library(hrbrthemes)  ## plot theme
+```
 
+```{r}
 
 ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
+  
   geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, gradient_lwd = 1.) +
+  
   scale_x_continuous(expand = c(0.01, 0)) +
+  
   scale_y_discrete(expand = c(0.01, 0)) +
+  
   scale_fill_viridis(name = "Temp. [ºF]", option = "C") +
-  labs(title = 'Temperatures in Lake Wheeler',
+  
+  labs(title = 'Temperatures at  Lake Wheeler',
        subtitle = 'Mean temperatures (Fahrenheit) by month for 2020-2021\nData: ECONet Station', 
        x = "Mean Temperature") +
+  
   theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
 
+
+#
 
 
 ```
