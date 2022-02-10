@@ -214,14 +214,13 @@ ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 
 
 
-```{r}
-ggplot(cardinal,av)
-```
-
+### Fancy Plot Time
 
 
 
 - Inspiration from ggridges documentation
+
+- We want to stylize the boxplot from the aobve statement
 
 ```{r}
 
