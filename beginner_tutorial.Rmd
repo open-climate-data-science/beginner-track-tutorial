@@ -62,8 +62,24 @@ cardinal <- read_csv("cardinal_data.csv",
          `Average Solar Radiation (W/m2)` = col_number(), 
          `Average Station Pressure (mb)` = col_number()))
 
+```
+
+### Cleaning Data 
+
+
+- usually a lot more messy 
+- R can handle a lot of small details 
+
+
+```{r}
+
+# drop rows of missing values 
 cardinal<-drop_na(cardinal)
+
+#determine data types of all cols 
 str(cardinal)
+
+#create a date 
 cardinal$Date<-as.Date(cardinal$Date, tryFormats= c("%m/%d/%y"))
 view(cardinal)
 
@@ -104,6 +120,8 @@ str(cardinal)
 
 ###  Numerical Variable, Rain Difference
 
+- Dollar sign + "Name of Variable"
+
 ```{r}
 cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
 ```
@@ -113,10 +131,31 @@ cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
 ## Numerical Summaries
 
 
+- Help us determine basic trends in data from printouts. 
+
+- Summary gives as a 5 number summary of numeric variables
+
+- Basic counts of factor variables
+
+```{r}
+summary(cardinal)
+```
+
+- Frequency Table to compare categorical / factor variables.
+
+```{r}
+# Frequency Table 
+table(cardinal$month,cardinal$IfRain)
+```
+
+
+
 
 
 ## Plotting Basic 
 
+
+- Simple visual of frequency count
 
 ```{r}
 # base plots in R, categorical variables
@@ -127,10 +166,12 @@ plot(cardinal$IfRain)
 
 
 
-We will be using a package called ggplot2.
+- We will be using a package called ggplot2.
 
 
-Here is a good link: https://www.rstudio.com/resources/cheatsheets/
+- Here is a good link: https://www.rstudio.com/resources/cheatsheets/
+
+- Note we have not even had a title or label specs yet 
 
 ```{r}
 ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
@@ -150,15 +191,24 @@ ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(
 #me 
 ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ")
 ```
+
+- Observe correlation and possible trend numerical variables
+
+- options 
+
 ```{r}
+ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
+
+# coloring by month to observe trends
 ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 ```
 
 
 
 ```{r}
+
+# + geom_boxplot is a great tool to observe spreads
+
 ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
-
-
 ```
 
