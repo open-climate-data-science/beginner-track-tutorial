@@ -194,7 +194,7 @@ ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall
 
 - Observe correlation and possible trend numerical variables
 
-- options 
+- options are very versatile inside a +geom_statement
 
 ```{r}
 ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
