@@ -265,7 +265,7 @@ ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
 
 
 library(viridis)     ## color palette
-library(ggjoy)       ## ridges
+library(ggridges)    ## ridges
 library(hrbrthemes)  ## plot theme
 ```
 
