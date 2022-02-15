@@ -32,8 +32,6 @@ knitr::include_graphics("images/leafWetness.jpg")
 ```
 
 
-
-
 ## Open Data Science
 
 ## What is Open Data and Reproducible Science?
@@ -57,16 +55,29 @@ For more information go to this website: https://the-turing-way.netlify.app/repr
 
 ## Using data inspection functions
 
-- `str` is a powerful function that allows you to determine what kind of variable we are working with 
+- A function is helper code that will take an input and give an output
+- `str` is a powerful function that allows you to determine what kind of variable we are working with
+Examples:
+```{r}
+help(sum)
+sum(2,2)
+wuf <- c(1,2,3)
+str(wuf)
+iris
+str(iris)
+```
+
+
+ 
 
 
 ### Data Types
 
-- Date
-- Str
-- Char
-- Double 
-- Num
+- Date: this data type is assigned to dates such as 2022-03-02 for March 2, 2022
+- Str:
+- Char:
+- Double:
+- Num:
 
 ```{r}
 library(readr)
