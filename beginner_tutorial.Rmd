@@ -60,7 +60,11 @@ For more information go to this [website](https://the-turing-way.netlify.app/rep
 ### What are libraries! 
 
 
+- Part of the reason \R has become so popular is the vast array of packages available at the cran and bioconductor repositories. In the last few years, the number of packages has grown exponentially!
+
 - Helpful tools to do data analysis. 
+
+-
 
 ```{r}
 
