@@ -18,6 +18,8 @@ library(lubridate)
 
 ## Tutorial Learning Goals
 
+Welcome to the NCSCO OCDS Intro track tutorial. We will be using R studio for today's session. 
+
 We will be tackling these objectives:
 
 - *Define* open data and reproducible science
@@ -52,12 +54,14 @@ Open data research aims to transform research by pushing change in the way that 
 
 For more information go to this website: https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
 
-## Importing Data From Cardinals
+## Importing Data
+
+###  ... From Cardinals
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
 
-## Using data inspection functions
+### Using data inspection functions
 
 - A function is helper code that will take an input and give an output
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
@@ -131,7 +135,7 @@ colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm
 ```
 
 
-## Making new Data
+## Making New Data
 
 ### When does it Rain ? 
 
@@ -195,7 +199,7 @@ table(cardinal$month,cardinal$IfRain)
 
 
 
-## Plotting Basic 
+## Plotting Basics  
 
 
 - Simple visual of frequency count
@@ -331,7 +335,7 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
 
 ```
 
-## After Completing This Tutorial You Can:
+## Closing:
 
 - *Define* open data and reproducible science
 - *Describe* how to navigate important aspects of the R/RStudio user-interface
