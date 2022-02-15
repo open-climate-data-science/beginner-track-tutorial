@@ -56,6 +56,19 @@ For more information go to this [website](https://the-turing-way.netlify.app/rep
 
 ## Importing Data
 
+
+### What are libraries! 
+
+
+- Helpful tools to do data analysis. 
+
+```{r}
+
+```
+
+
+
+
 ###  ... From Cardinal
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
