@@ -36,6 +36,8 @@ Open data research aims to transform research by pushing change in the way that 
 - Publicly available: Open data is freely available on the internet.
 - Reusable: Proper licensing is essential for research outputs so that users know any limitations on re-use
 - Transparent: With appropriate metadata to explain how research output was produced and what it contains
+- You can easily share what you did with your colleagues, collaborators, etc. and it’s easy to make changes and rerun analysis with different settings.
+
 
 For more information go to this website: https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
 
