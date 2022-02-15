@@ -16,9 +16,10 @@ library(lubridate)
 
 # NCSCO OCDS Intro Track Tutorial{.tabset}
 
+
 ## Tutorial Learning Goals
 
-Welcome to the NCSCO OCDS Intro track tutorial. We will be using R studio for today's session. 
+Welcome to the NCSCO OCDS Intro track tutorial. We are  [Nick Gawron](https://www.linkedin.com/in/ngawrondata/) and [Livia Popa](https://www.linkedin.com/in/livia-popa-23a018183/), we will be working with you through today's tutorial.  We will be using R studio for today's session. 
 
 We will be tackling these objectives:
 
@@ -54,26 +55,82 @@ Open data research aims to transform research by pushing change in the way that 
 
 For more information go to this [website](https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html). 
 
-## Importing Data
+## R Basics 
+
+### The Panel Layout
 
 
-### What are libraries! 
+RStudio has four main panes each in a quadrant of your screen: *Console* , *Source Editor*, *Workspace Browser* (and History), and *Plots* (and Files, Packages, Help). These can also be adjusted under the ‘Preferences’ menu. Note that there might be subtle differences between RStudio installations on different operating systems. We will discuss each of the panes in turn.
 
 
-- Part of the reason \R has become so popular is the vast array of packages available at the cran and bioconductor repositories. In the last few years, the number of packages has grown exponentially!
+#### Console
+
+The console is a great tool that is a calculator and let's us write / execute one line commands. 
+
+
+We can also do one line commands and create variables thanks to the assign operator `<-`
+
+#### Source Editor 
+
+
+Mr.Wuf may want to write programs that are quite complex and may need a few more lines than the console. The Source Editor can help you open, edit and execute these longer programs. 
+
+How would you start a new project? Simple: 
+
+1. Use Windows Explorer and navigate to the file BONUS/the_new_age.R.
+
+2. Now make RStudio the default application to open .R files (right click on the file Name and set RStudio to open it as the default if it isn’t already)
+
+3. Now double click on the file – this will open it in RStudio in the Source Editor in the top left pane.
+
+
+How do we execute code? 
+
+- Execute a single line (Run icon or *Ctrl+Enter*). Note that the cursor can be anywhere on the line and one does not need to highlight anything — do this for the code on line 2
+- Execute multiple lines (Highlight lines with the cursor, then Run icon or *Ctrl+Enter*) 
+- Execute the whole script (Source icon or *Ctrl+Shift+Enter*)
+
+
+What kind of files are we working with? 
+
+- Today, you will be working with a `.R` file. This allows us to write and execude code with comments. 
+
+- This html file you may be viewing was created in another kind of a file called a `.Rmd` file. Here we can create documents or files with formatted text that you are reading **right now** - as wel as R code. 
+
+
+#### Workspace 
+#### Plots 
+
+
+
+
+### What are libraries?
+
+
+- Part of the reason `R` has become so popular is the vast array of packages available at the cran and bioconductor repositories. 
+
+- In the last few years, the number of packages has grown exponentially!
 
 - Helpful tools to do data analysis. 
 
--
+- Lets Install One: 
 
 ```{r}
+# This will usually go in the console
+install.packages("ggplot2")
+```
 
+- Once we have this package installed, all we need to do in the future on our machine is call it
+  - This is done with the `library` command
+  - So at the start of your script you should: 
+  
+```{r}
+library(ggplot2)
 ```
 
 
 
-
-###  ... From Cardinal
+###  Importing From Cardinal
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
