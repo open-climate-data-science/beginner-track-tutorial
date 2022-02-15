@@ -67,14 +67,26 @@ For more information go to this website: https://the-turing-way.netlify.app/repr
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
 - `length` is a function that tells you how long objects are
 Examples:
+
 ```{r}
 help(sum)
+```
+
+
+
+```{r}
 sum(2,2)
 wuf <- c(1,2,3)
 str(wuf)
+
+length(wuf)
+
+```
+
+
+```{r}
 iris
 str(iris)
-length(wuf)
 length(iris)
 ```
 
