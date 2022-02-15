@@ -52,14 +52,20 @@ Open data research aims to transform research by pushing change in the way that 
 - You can easily share what you did with your colleagues, collaborators, etc. and it’s easy to make changes and rerun analysis with different settings.
 
 
-For more information go to this website: https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html
+For more information go to this [website](https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html). 
 
 ## Importing Data
 
-###  ... From Cardinals
+###  ... From Cardinal
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
+- This is a great resoucre for Mr.Wuf!
+
+<center> 
+<font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
+\center
+
 
 ### Using data inspection functions
 
@@ -111,7 +117,7 @@ cardinal <- read_csv("cardinal_data.csv")
 
 
 ```{r echo=F}
-cardinal <- read_csv("cardinal_data.csv", 
+cardinal_raw <- read_csv("cardinal_data.csv", 
      col_types = list(`Average Air Temperature (F)` = col_number(), 
          `Maximum Air Temperature (F)` = col_number(), 
          `Minimum Air Temperature (F)` = col_number(), 
@@ -135,7 +141,7 @@ cardinal <- read_csv("cardinal_data.csv",
 ```{r}
 
 # drop rows of missing values 
-cardinal<-drop_na(cardinal)
+cardinal<-drop_na(cardinal_raw)
 
 #determine data types of all cols 
 str(cardinal)
@@ -191,6 +197,8 @@ cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
 
 ## Numerical Summaries
 
+
+### What are they ?
 
 - Help us determine basic trends in data from printouts. 
 
