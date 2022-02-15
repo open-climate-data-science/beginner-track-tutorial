@@ -65,6 +65,7 @@ For more information go to this website: https://the-turing-way.netlify.app/repr
 
 - A function is helper code that will take an input and give an output
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
+- `length` is a function that tells you how long objects are
 Examples:
 ```{r}
 help(sum)
@@ -73,19 +74,20 @@ wuf <- c(1,2,3)
 str(wuf)
 iris
 str(iris)
+length(wuf)
+length(iris)
 ```
-
-
- 
 
 
 ### Data Types
 
 - Date: this data type is assigned to dates such as 2022-03-02 for March 2, 2022
-- Str:
-- Char:
-- Double:
-- Num:
+- Character: `"a"`, `"NC State"`
+- Numeric (real or decimal): `2`, `13.6`
+- Integer: `2L` (the `L` tells R to store this as an integer)
+- Logical: `TRUE`, `FALSE`
+- Complex: `1+4i`(complex numbers with real and imaginary parts)
+
 
 ```{r}
 library(readr)
