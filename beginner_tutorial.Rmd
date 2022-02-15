@@ -72,16 +72,13 @@ str(iris)
 ```
 
 
- 
-
 
 ### Data Types
 
 - Date: this data type is assigned to dates such as 2022-03-02 for March 2, 2022
-- Str:
-- Char:
-- Double:
-- Num:
+- Character:
+- Integer:
+- Numericx:
 
 ```{r}
 library(readr)
