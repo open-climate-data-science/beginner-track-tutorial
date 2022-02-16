@@ -1,5 +1,5 @@
 ---
-title: "NCSCO OCDS Intro Track Tutorial"
+title: "North Carolina State Climate Office "
 output:
   html_document:
     code_folding: hide
@@ -15,7 +15,7 @@ library(lubridate)
 ```
 
 
-# NCSCO OCDS Intro Track Tutorial{.tabset}
+# OCDS Intro Track Tutorial{.tabset}
 
 
 ## Tutorial Learning Goals
@@ -34,9 +34,7 @@ We will be tackling these objectives:
 Mr. Wuf works for Mount Mitchell State Park in Burnsville, NC and was recently asked by his boss to write a report summarizing rainfall and temperature data for 2021. This report will be used to help optimize 2022 event planning (e.g., fall color viewing) for park visitors and maintenance scheduling for park staff. Mr. Wuf’s wife, Mrs. Wuf, recently told him about the State Climate Office of North Carolina’s new Cardinal and Station Scout data portals. He agrees with her that it would be a great opportunity to check out these new, free tools. After some preliminary sleuthing around Station Scout, he discovered there was a National Weather Service Cooperative Observer Program (COOP; https://www.weather.gov/rah/coop) station on park property (station # 315923). How did he miss this? Once he downloads these data from Cardinal, Mr. Wuf plans to put the skills he learned in an online R programming course to the test for this real-world, work-related project.\
 
 
-![Mr. Wuf]("/images/leafWetness.jpg")
-
-
+![Mr. Wuf](images/leafWetness.jpg)
 
 
 
@@ -100,9 +98,15 @@ What kind of files are we working with?
 
 
 #### Workspace 
+
+
+The Environment or Workspace pane is very useful as it shows you what objects (something we will go over soon) you have in your environment (workspace). You can see the values for objects with a single value and for those that are longer R will tell you their class. When you have data in your environment that have two dimensions (rows and columns) you may click on them and they will appear in the Source Editor pane like a spreadsheet.
+
+
 #### Plots 
 
 
+The last pane has many uses but for one - allows us to visualize plots, and see our current directory (set of folders where our programs live). 
 
 
 ### What are libraries?
@@ -131,18 +135,18 @@ library(ggplot2)
 
 
 
-###  Importing From Cardinal
+### Data Types
 
-- Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
-- Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
-- This is a great resoucre for Mr.Wuf!
+- Date: this data type is assigned to dates such as 2022-03-02 for March 2, 2022
+- Character: `"a"`, `"NC State"`
+- Numeric (real or decimal): `2`, `13.6`
+- Integer: `2L` (the `L` tells R to store this as an integer)
+- Logical: `TRUE`, `FALSE`
+- Complex: `1+4i`(complex numbers with real and imaginary parts)
 
-<center> 
-<font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
-\center
 
 
-### Using data inspection functions
+### Using data Inspection Functions
 
 - A function is helper code that will take an input and give an output
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
@@ -166,20 +170,26 @@ length(wuf)
 
 
 ```{r}
-iris
+head(iris)
 str(iris)
 length(iris)
 ```
 
 
-### Data Types
 
-- Date: this data type is assigned to dates such as 2022-03-02 for March 2, 2022
-- Character: `"a"`, `"NC State"`
-- Numeric (real or decimal): `2`, `13.6`
-- Integer: `2L` (the `L` tells R to store this as an integer)
-- Logical: `TRUE`, `FALSE`
-- Complex: `1+4i`(complex numbers with real and imaginary parts)
+
+
+
+###  Importing From Cardinal
+
+- Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
+- Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
+- This is a great resoucre for Mr.Wuf!
+
+<center> 
+<font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
+\center
+
 
 
 ```{r}
@@ -205,6 +215,8 @@ cardinal_raw <- read_csv("cardinal_data.csv",
          `Average Station Pressure (mb)` = col_number()))
 
 ```
+
+
 
 ### Cleaning Data 
 
@@ -326,6 +338,24 @@ ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 
 
 
+
+
+- Maybe show total precip vs month as bar chart.
+
+
+```{r}
+library(ggplot2)
+boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+```
+
+- These dots indicate outliers in out data- we can make this plot easier to visualize manually
+
+```{r}
+boxpRain+ylim(0, .75)
+```
+
+
+
 - Observe correlation and possible trend numerical variables
 
 - Using cheatsheet, we can find a lot more plot types and options!
@@ -400,6 +430,8 @@ ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
 
 - We will be using a few libraries here: remeber to use `install.packages("library_name")` first before running the library statment. 
 
+- The below panel shows us librares we need
+
 ```{r}
 
 
@@ -408,6 +440,9 @@ library(ggridges)    ## ridges
 library(hrbrthemes)  ## plot theme
 ```
 
+
+- we will walk you through the ggplot options for this plot! 
+s
 ```{r}
 
 ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
