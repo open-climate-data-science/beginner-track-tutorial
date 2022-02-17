@@ -11,6 +11,11 @@ library(ggplot2)
 library(tidyverse)
 library(rnoaa)
 library(lubridate)
+# for advancded pretty plot
+library(viridis)     ## color palette
+library(ggridges)    ## ridges
+library(hrbrthemes)  ## plot theme
+```
 # uploads library info
 ```
 
@@ -120,10 +125,8 @@ The last pane has many uses but for one - allows us to visualize plots, and see 
 
 - Lets Install One: 
 
-```{r}
-# This will usually go in the console
-install.packages("ggplot2")
-```
+Use this code for the first time
+`install.packages("ggplot2")`
 
 - Once we have this package installed, all we need to do in the future on our machine is call it
   - This is done with the `library` command
@@ -429,7 +432,7 @@ ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
 ```
 
 
-### Fancy Plot Time
+### Extra Bonus Plot Time
 
 
 - Inspiration from ggridges documentation
