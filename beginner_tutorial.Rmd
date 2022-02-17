@@ -17,13 +17,6 @@ library(viridis)     ## color palette
 library(ggridges)    ## ridges
 library(hrbrthemes)  ## plot theme
 ```
-<<<<<<< HEAD
-
-=======
-# uploads library info
->>>>>>> 436a18b95625c387f720d91e64bdfcbe1b5ca457
-
-
 
 # OCDS Intro Track Tutorial{.tabset}
 
