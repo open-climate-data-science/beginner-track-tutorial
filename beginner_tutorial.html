@@ -328,10 +328,27 @@ str(wuf)</code></pre>
 <li>This is a great resoucre for Mr.Wuf!</li>
 </ul>
 <center>
-<p><font size="24"> The Link is <a href="https://products.climate.ncsu.edu/cardinal/request/">Here</a>! </font> </p>
-<pre class="r"><code>library(readr)
-cardinal &lt;- read_csv(&quot;cardinal_data.csv&quot;)
-#cardinal%&gt;%filter(colnames(cardinal)!=&quot;MV&quot;)</code></pre>
+<p><font size="24"> The Link is <a href="https://products.climate.ncsu.edu/cardinal/request/">Here</a>! </font> &lt;&gt;</p>
+Instead of going thru all the specifications and time to request data:
+<center>
+<p><font size="24">Download the <a href="cardinal_data.csv">cardinal_data.csv</a>. </font> &lt;&gt;</p>
+<pre class="r"><code>cardinal_raw &lt;- read_csv(&quot;cardinal_data.csv&quot;, 
+     col_types = list(`Average Air Temperature (F)` = col_number(), 
+         `Maximum Air Temperature (F)` = col_number(), 
+         `Minimum Air Temperature (F)` = col_number(), 
+         `Average Experimental Leaf Wetness (mV)` = col_number(), 
+         `Total Precipitation (in)` = col_number(), 
+         `Average Relative Humidity (%)` = col_number(), 
+         `Average Soil Moisture (m3/m3)` = col_number(), 
+         `Average Soil Temperature (F)` = col_number(), 
+         `Average Solar Radiation (W/m2)` = col_number(), 
+         `Average Station Pressure (mb)` = col_number()))</code></pre>
+<ul>
+<li>We can implement code to import our external data
+<ul>
+<li>Or use the IMPORT Button in the Environment Panel!</li>
+</ul></li>
+</ul>
 </div>
 <div id="cleaning-data" class="section level3">
 <h3>Cleaning Data</h3>

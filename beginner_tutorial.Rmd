@@ -188,11 +188,15 @@ length(iris)
 
 <center> 
 <font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
-\center
+<\center>
 
+Instead of going thru all the specifications and time to request data: 
+<center> 
+<font size="24">Download the [cardinal_data.csv](cardinal_data.csv). 
+ </font>
+<\center
 
-
-```{r}
+```{r echo = F}
 library(readr)
 cardinal <- read_csv("cardinal_data.csv")
 #cardinal%>%filter(colnames(cardinal)!="MV")
@@ -201,7 +205,7 @@ cardinal <- read_csv("cardinal_data.csv")
 
 
 
-```{r echo=F}
+```{r}
 cardinal_raw <- read_csv("cardinal_data.csv", 
      col_types = list(`Average Air Temperature (F)` = col_number(), 
          `Maximum Air Temperature (F)` = col_number(), 
@@ -216,6 +220,10 @@ cardinal_raw <- read_csv("cardinal_data.csv",
 
 ```
 
+
+
+- We can implement code to import our external data
+  - Or use the IMPORT Button in the Environment Panel!
 
 
 ### Cleaning Data 
