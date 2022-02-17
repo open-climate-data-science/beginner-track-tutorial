@@ -11,13 +11,14 @@ library(ggplot2)
 library(tidyverse)
 library(rnoaa)
 library(lubridate)
+library(readxl)
 # for advancded pretty plot
 library(viridis)     ## color palette
 library(ggridges)    ## ridges
 library(hrbrthemes)  ## plot theme
 ```
-# uploads library info
-```
+
+
 
 
 # OCDS Intro Track Tutorial{.tabset}
@@ -189,20 +190,25 @@ length(iris)
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
 - This is a great resoucre for Mr.Wuf!
 
+- We can implement code to import our external data
+  - Or use the IMPORT Button in the Environment Panel!
+
+
 <center> 
 <font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
-<\center>
+\center
 
 Instead of going thru all the specifications and time to request data: 
 <center> 
-<font size="24">Download the [cardinal_data.csv](cardinal_data.csv). 
+<font size="24">Download the [raw_cardinal_data.csv](raw_cardinal_data.csv). 
  </font>
-<\center
+\center
 
-```{r echo = F}
-library(readr)
-cardinal <- read_csv("cardinal_data.csv")
-#cardinal%>%filter(colnames(cardinal)!="MV")
+```{r}
+raw_cardinal_data <- read_excel("raw_cardinal_data.xlsx", 
+    col_types = c("text", "numeric", "numeric", 
+        "numeric", "numeric", "numeric", 
+        "numeric", "numeric"))
 ```
 
 
@@ -225,8 +231,6 @@ cardinal_raw <- read_csv("cardinal_data.csv",
 
 
 
-- We can implement code to import our external data
-  - Or use the IMPORT Button in the Environment Panel!
 
 
 ### Cleaning Data 
@@ -477,6 +481,287 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
 
 
 ```
+
+
+
+
+## Bonus Section
+
+
+Here we are using the ECOnet Data, making a paragraph. 
+
+
+
+```{r}
+cardinal_raw <- read_csv("cardinal_data.csv", 
+     col_types = list(`Average Air Temperature (F)` = col_number(), 
+         `Maximum Air Temperature (F)` = col_number(), 
+         `Minimum Air Temperature (F)` = col_number(), 
+         `Average Experimental Leaf Wetness (mV)` = col_number(), 
+         `Total Precipitation (in)` = col_number(), 
+         `Average Relative Humidity (%)` = col_number(), 
+         `Average Soil Moisture (m3/m3)` = col_number(), 
+         `Average Soil Temperature (F)` = col_number(), 
+         `Average Solar Radiation (W/m2)` = col_number(), 
+         `Average Station Pressure (mb)` = col_number()))
+
+```
+
+
+
+
+
+### Cleaning Data 
+
+
+- usually a lot more messy 
+- R can handle a lot of small details 
+
+
+```{r}
+
+# drop rows of missing values 
+cardinal<-drop_na(cardinal_raw)
+
+#determine data types of all cols 
+str(cardinal)
+
+#create a date 
+cardinal$Date<-as.Date(cardinal$Date, tryFormats= c("%m/%d/%y"))
+view(cardinal)
+
+#changes col names
+colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
+```
+
+
+### Making New Data
+
+#### When does it Rain ? 
+
+```{r}
+#me making new data
+
+cardinal$IfRain<- (cardinal$Tprep>0)
+cardinal$IfRain<-as.factor(as.integer(cardinal$IfRain))
+cardinal
+
+```
+
+
+
+### Month Factor variable
+
+- Factor variable is a category or bin we can place a value in. 
+
+```{r}
+
+# month variable 
+cardinal$month<-month(cardinal$date)
+cardinal$month<-as.factor(cardinal$month)
+
+# str factor
+str(cardinal)
+```
+
+
+###  Numerical Variable, Rain Difference
+
+- Dollar sign + "Name of Variable"
+
+```{r}
+cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
+```
+
+
+
+### Numerical Summaries
+
+
+#### What are they ?
+
+- Help us determine basic trends in data from printouts. 
+
+- Summary gives as a 5 number summary of numeric variables
+
+- Basic counts of factor variables
+
+```{r}
+summary(cardinal)
+```
+
+- Frequency Table to compare categorical / factor variables.
+
+```{r}
+# Frequency Table 
+table(cardinal$month,cardinal$IfRain)
+```
+
+
+
+
+
+### Plotting Basics  
+
+
+- Simple visual of frequency count
+
+```{r}
+# base plots in R, categorical variables
+#does a count
+plot(cardinal$IfRain,main ='Frequency Bar Plot of Rain Occurance',xlab="Occurence of Rain (0-No, 1- Yes)",ylab = "Number of Days")
+
+```
+
+
+
+
+- We will be using a package called `ggplot2`.
+
+- Here is a good link: https://www.rstudio.com/resources/cheatsheets/
+
+- Two basic functions: ggplot() & geom_plottype
+  - Note we have not even had a title or label specs yet 
+
+```{r}
+# first ggplot figure
+
+ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
+```
+
+
+
+
+
+- Maybe show total precip vs month as bar chart.
+
+
+```{r}
+library(ggplot2)
+boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+```
+
+- These dots indicate outliers in out data- we can make this plot easier to visualize manually
+
+```{r}
+boxpRain+ylim(0, .75)
+```
+
+
+
+- Observe correlation and possible trend numerical variables
+
+- Using cheatsheet, we can find a lot more plot types and options!
+
+  - Note the use of `labs` statement
+
+
+```{r}
+ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ", x= "Date")
+```
+
+- options are very versatile inside a `+geom_statement()`
+
+- We can use the cheatsheet to find out information about this 
+
+- Note how we change atributes inside the `aes` statment
+
+```{r}
+
+ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+
+# title and all labels included in one more statement 
+```
+
+- One popular option is to color-code based off of a categorial / factor variable 
+
+- See the difference when we include `aes(col=month)`
+
+- Below is a scatter plot
+
+```{r}
+
+# general plot
+ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
+
+# coloring by month to observe trends
+ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
+```
+
+
+- We can also use categorical variables on the x-axis
+
+```{r}
+
+# + geom_boxplot is a great tool to observe spreads
+
+ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
+```
+
+
+- Box-plots are cumbersome and not super helpful in visalization. 
+
+
+### How could we make this boxplot better? 
+
+- Note we are looking at average daily tempurature
+
+```{r}
+
+# + geom_boxplot is a great tool to observe spreads
+
+ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
+```
+
+
+### Extra Bonus Plot Time
+
+
+- Inspiration from ggridges documentation
+
+- We want to stylize the boxplot from the above statement       
+
+- We will be using a few libraries here: remeber to use `install.packages("library_name")` first before running the library statment. 
+
+- The below panel shows us librares we need
+
+```{r}
+
+
+library(viridis)     ## color palette
+library(ggridges)    ## ridges
+library(hrbrthemes)  ## plot theme
+```
+
+
+- we will walk you through the ggplot options for this plot! 
+
+
+```{r}
+
+ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
+  
+  geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, gradient_lwd = 1.) +
+  
+  scale_x_continuous(expand = c(0.01, 0)) +
+  
+  scale_y_discrete(expand = c(0.01, 0)) +
+  
+  scale_fill_viridis(name = "Temp. [ºF]", option = "C") +
+  
+  labs(title = 'Temperatures at  Lake Wheeler',
+       subtitle = 'Mean temperatures (Fahrenheit) by month for 2020-2021\nData: ECONet Station', 
+       x = "Mean Temperature") +
+  
+  theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
+
+
+#
+
+
+```
+
+
 
 ## Closing:
 
