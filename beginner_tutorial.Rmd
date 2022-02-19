@@ -176,10 +176,6 @@ length(iris)
 ```
 
 
-
-
-
-
 ###  Importing From Cardinal
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
@@ -224,9 +220,6 @@ cardinal_raw <- read_csv("cardinal_data.csv",
          `Average Station Pressure (mb)` = col_number()))
 
 ```
-
-
-
 
 
 ### Cleaning Data 
@@ -316,9 +309,6 @@ table(cardinal$month,cardinal$IfRain)
 ```
 
 
-
-
-
 ## Plotting Basics  
 
 
@@ -331,7 +321,8 @@ plot(cardinal$IfRain,main ='Frequency Bar Plot of Rain Occurance',xlab="Occurenc
 
 ```
 
-
+- This barplot shows the frequency of how many times it rained vs. did not rain. 
+- This is for the entire dataset spanning across all years.
 
 
 - We will be using a package called `ggplot2`.
@@ -347,25 +338,24 @@ plot(cardinal$IfRain,main ='Frequency Bar Plot of Rain Occurance',xlab="Occurenc
 ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 ```
 
-
-
-
+- This is a scatterplot showing the distribution of average leaf wetness across all years. 
+- The highest point is in January 2021.
 
 - Maybe show total precip vs month as bar chart.
 
 
 ```{r}
 library(ggplot2)
-boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
 ```
-
-- These dots indicate outliers in out data- we can make this plot easier to visualize manually
+- This is a boxplot of total precipitation within each month. 
+- These dots indicate outliers in out data- we can make this plot easier to visualize manually.
 
 ```{r}
 boxpRain+ylim(0, .75)
 ```
 
-
+- By changing the range of the boxplots we can now see the distribution of the data more easily.
 
 - Observe correlation and possible trend numerical variables
 
@@ -375,8 +365,10 @@ boxpRain+ylim(0, .75)
 
 
 ```{r}
-ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Daily Rainfall by Date",y="Average Tempurature (F) ", x= "Date")
+ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Average Temperature by Date",y="Average Tempurature (F) ", x= "Date")
 ```
+
+- This line graph shows the total average temperature by date. Temperature generally increases in the spring and summer months, with peaks and troughs within each month.
 
 - options are very versatile inside a `+geom_statement()`
 
@@ -390,6 +382,8 @@ ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(
 
 # title and all labels included in one more statement 
 ```
+
+- This histogram shows the average temperature over the days.
 
 - One popular option is to color-code based off of a categorial / factor variable 
 
@@ -406,6 +400,7 @@ ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
 ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 ```
 
+- This scatterplot shows the average humidity vs average leaf wetness by month. As humidity increases, average leaf wetness increases.
 
 - We can also use categorical variables on the x-axis
 
@@ -416,6 +411,7 @@ ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 ```
 
+- This boxplot shows the range of temperature across each month. In the summer the range decreases, meaning there is less variation in temperature when compared to winter months.
 
 - Box-plots are cumbersome and not super helpful in visalization. 
 
@@ -431,6 +427,7 @@ ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
 ```
 
+- This is a boxplot showing the spread of average temperature across months. There are a few outliers in some months and the range of values is smaller in the summer.
 
 ### Extra Bonus Plot Time
 
