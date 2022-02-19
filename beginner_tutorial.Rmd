@@ -469,13 +469,11 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
   
   theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
 
-
-#
-
-
 ```
 
+- This plot shows the distribution of temperature within each month. 
 
+- The density plots are colored by temperature, making it easier to visualize the spread of temperature. 
 
 
 ## Bonus Section
