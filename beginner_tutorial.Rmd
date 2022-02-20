@@ -346,7 +346,8 @@ ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 
 ```{r}
 library(ggplot2)
-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+boxpRain
 ```
 - This is a boxplot of total precipitation within each month. 
 - These dots indicate outliers in out data- we can make this plot easier to visualize manually.
