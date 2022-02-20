@@ -150,8 +150,7 @@ library(ggplot2)
 
 - A function is helper code that will take an input and give an output
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
-- `length` is a function that tells you how long objects are
-Examples:
+- `length` is a function that tells you how long objects are Examples:
 
 ```{r}
 help(sum)
@@ -206,21 +205,6 @@ raw_cardinal_data <- read_excel("raw_cardinal_data.xlsx",
 
 
 
-```{r}
-cardinal_raw <- read_csv("cardinal_data.csv", 
-     col_types = list(`Average Air Temperature (F)` = col_number(), 
-         `Maximum Air Temperature (F)` = col_number(), 
-         `Minimum Air Temperature (F)` = col_number(), 
-         `Average Experimental Leaf Wetness (mV)` = col_number(), 
-         `Total Precipitation (in)` = col_number(), 
-         `Average Relative Humidity (%)` = col_number(), 
-         `Average Soil Moisture (m3/m3)` = col_number(), 
-         `Average Soil Temperature (F)` = col_number(), 
-         `Average Solar Radiation (W/m2)` = col_number(), 
-         `Average Station Pressure (mb)` = col_number()))
-
-```
-
 
 ### Cleaning Data 
 
@@ -232,17 +216,20 @@ cardinal_raw <- read_csv("cardinal_data.csv",
 ```{r}
 
 # drop rows of missing values 
-cardinal<-drop_na(cardinal_raw)
+cardinal<-drop_na(raw_cardinal_data)
 
 #determine data types of all cols 
-str(cardinal)
+str(raw_cardinal_data)
 
-#create a date 
-cardinal$Date<-as.Date(cardinal$Date, tryFormats= c("%m/%d/%y"))
-view(cardinal)
 
 #changes col names
-colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm","AvgSt","AvgSr","AvgStp")
+colnames(cardinal)=c("date","MaxT_degF","AvgT_degF","MinT_degF","cool_degDays","grow_degDays","heat_degDays","TPrep_in")
+
+
+#create a date 
+cardinal$date<-as.Date(cardinal$date)
+
+str(cardinal)
 ```
 
 
@@ -253,7 +240,7 @@ colnames(cardinal)=c("date","AvgT","MaxT","MinT","AvgLw","Tprep","AvgHum","AvgSm
 ```{r}
 #me making new data
 
-cardinal$IfRain<- (cardinal$Tprep>0)
+cardinal$IfRain<- (cardinal$TPrep_in>0)
 cardinal$IfRain<-as.factor(as.integer(cardinal$IfRain))
 cardinal
 
@@ -281,7 +268,7 @@ str(cardinal)
 - Dollar sign + "Name of Variable"
 
 ```{r}
-cardinal$TDiff <- cardinal$MaxT-cardinal$MinT
+cardinal$TDiff_degF <- cardinal$MaxT_degF-cardinal$MinT_degF
 ```
 
 
@@ -302,10 +289,21 @@ summary(cardinal)
 ```
 
 - Frequency Table to compare categorical / factor variables.
+  - Several kinds!
+  - Depends on the number of categorical variables present. 
 
 ```{r}
 # Frequency Table 
-table(cardinal$month,cardinal$IfRain)
+table(cardinal$IfRain)
+
+#changes level names!
+levels(cardinal$IfRain)<-c("No", "Yes")
+
+
+# two level table
+tabl2Way<-table(cardinal$month,cardinal$IfRain)
+
+tabl2Way
 ```
 
 
@@ -317,25 +315,37 @@ table(cardinal$month,cardinal$IfRain)
 ```{r}
 # base plots in R, categorical variables
 #does a count
-plot(cardinal$IfRain,main ='Frequency Bar Plot of Rain Occurance',xlab="Occurence of Rain (0-No, 1- Yes)",ylab = "Number of Days")
+plot(cardinal$IfRain)
 
 ```
+
 
 - This barplot shows the frequency of how many times it rained vs. did not rain. 
 - This is for the entire dataset spanning across all years.
 
 
+- In standard R, we can create a barplot with a standard table
+
+```{r}
+
+plot(tabl2Way,main ='Proportion Bar Plot of Rain Occurance',xlab="Occurence of Rain (0-No, 1- Yes)",ylab = "Proportion of Days")
+```
+
+
+
+- Base R is limited in usage. 
+
 - We will be using a package called `ggplot2`.
 
 - Here is a good link: https://www.rstudio.com/resources/cheatsheets/
 
-- Two basic functions: ggplot() & geom_plottype
+- Two basic functions: `ggplot()` & `geom_plottype`
   - Note we have not even had a title or label specs yet 
 
 ```{r}
 # first ggplot figure
 
-ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
+ggplot(cardinal,aes(x= date ,y= heat_degDays))+ geom_point()
 ```
 
 - This is a scatterplot showing the distribution of average leaf wetness across all years. 
@@ -345,15 +355,16 @@ ggplot(cardinal,aes(x= date ,y= AvgLw))+ geom_point()
 
 
 ```{r}
-library(ggplot2)
-boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
+
+boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_boxplot()
 boxpRain
 ```
 - This is a boxplot of total precipitation within each month. 
 - These dots indicate outliers in out data- we can make this plot easier to visualize manually.
+- We can add edits to a specific ggplot2 object
 
 ```{r}
-boxpRain+ylim(0, .75)
+boxpRain+ylim(0, 1.25)
 ```
 
 - By changing the range of the boxplots we can now see the distribution of the data more easily.
@@ -366,7 +377,7 @@ boxpRain+ylim(0, .75)
 
 
 ```{r}
-ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Average Temperature by Date",y="Average Tempurature (F) ", x= "Date")
+ggplot(cardinal,aes(x=date,y=AvgT_degF))+geom_line()+labs(title="Total Average Temperature by Date",y="Average Tempurature (F) ", x= "Date")
 ```
 
 - This line graph shows the total average temperature by date. Temperature generally increases in the spring and summer months, with peaks and troughs within each month.
@@ -379,7 +390,7 @@ ggplot(cardinal,aes(x=date,y=AvgT))+geom_line()+labs(title="Total Average Temper
 
 ```{r}
 
-ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+ggplot(cardinal,aes(x=AvgT_degF)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
 
 # title and all labels included in one more statement 
 ```
@@ -395,10 +406,10 @@ ggplot(cardinal,aes(x=AvgT)) + geom_histogram(color="green",fill="orange")+labs(
 ```{r}
 
 # general plot
-ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point()
+TempPlot<-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point()
 
 # coloring by month to observe trends
-ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
+ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
 ```
 
 - This scatterplot shows the average humidity vs average leaf wetness by month. As humidity increases, average leaf wetness increases.
@@ -409,7 +420,7 @@ ggplot(cardinal,aes(x=AvgHum,y=AvgLw))+geom_point(aes(col=month))
 
 # + geom_boxplot is a great tool to observe spreads
 
-ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
+ggplot(cardinal,aes(x=month , y = TDiff_degF))+geom_boxplot()
 ```
 
 - This boxplot shows the range of temperature across each month. In the summer the range decreases, meaning there is less variation in temperature when compared to winter months.
@@ -425,7 +436,7 @@ ggplot(cardinal,aes(x=month , y = TDiff))+geom_boxplot()
 
 # + geom_boxplot is a great tool to observe spreads
 
-ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
+ggplot(cardinal,aes(x=month , y = AvgT_degF))+geom_boxplot()
 ```
 
 - This is a boxplot showing the spread of average temperature across months. There are a few outliers in some months and the range of values is smaller in the summer.
@@ -455,7 +466,7 @@ library(hrbrthemes)  ## plot theme
 
 ```{r}
 
-ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
+ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
   
   geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, gradient_lwd = 1.) +
   
@@ -776,7 +787,7 @@ library(hrbrthemes)  ## plot theme
 
 ```{r}
 
-ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
+ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
   
   geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, gradient_lwd = 1.) +
   
@@ -786,8 +797,8 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
   
   scale_fill_viridis(name = "Temp. [ºF]", option = "C") +
   
-  labs(title = 'Temperatures at  Lake Wheeler',
-       subtitle = 'Mean temperatures (Fahrenheit) by month for 2020-2021\nData: ECONet Station', 
+  labs(title = 'Temperatures at Burnsville Station',
+       subtitle = 'Mean temperatures (Fahrenheit) by month for 2019-2021\nData: COOP Station', 
        x = "Mean Temperature") +
   
   theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
