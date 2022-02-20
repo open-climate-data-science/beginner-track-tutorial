@@ -429,7 +429,8 @@ ggplot(cardinal,aes(x=month , y = AvgT))+geom_boxplot()
 
 - This is a boxplot showing the spread of average temperature across months. There are a few outliers in some months and the range of values is smaller in the summer.
 
-### Extra Bonus Plot Time
+### Fancy Plot Time
+
 
 
 - Inspiration from ggridges documentation
@@ -449,8 +450,8 @@ library(hrbrthemes)  ## plot theme
 ```
 
 
-- we will walk you through the ggplot options for this plot! 
-s
+- we will walk you through the ggplot options for this plot!  
+
 ```{r}
 
 ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
@@ -477,6 +478,50 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
 
 
 ## Bonus Section
+
+
+
+
+
+
+###  Importing From Cardinal
+
+- Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
+- Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
+- This is a great resoucre for Mr.Wuf!
+
+- We can implement code to import our external data
+  - Or use the IMPORT Button in the Environment Panel!
+
+
+<center> 
+<font size="24"> The Link is [Here](https://products.climate.ncsu.edu/cardinal/request/)! </font>
+\center
+
+Instead of going thru all the specifications and time to request data: 
+<center> 
+<font size="24">Download the [cardinal_data.csv](cardinal_data.csv). 
+ </font>
+\center
+
+
+
+
+```{r}
+cardinal_raw <- read_csv("cardinal_data.csv", 
+     col_types = list(`Average Air Temperature (F)` = col_number(), 
+         `Maximum Air Temperature (F)` = col_number(), 
+         `Minimum Air Temperature (F)` = col_number(), 
+         `Average Experimental Leaf Wetness (mV)` = col_number(), 
+         `Total Precipitation (in)` = col_number(), 
+         `Average Relative Humidity (%)` = col_number(), 
+         `Average Soil Moisture (m3/m3)` = col_number(), 
+         `Average Soil Temperature (F)` = col_number(), 
+         `Average Solar Radiation (W/m2)` = col_number(), 
+         `Average Station Pressure (mb)` = col_number()))
+
+```
+
 
 
 Here we are using the ECOnet Data, making a paragraph. 
