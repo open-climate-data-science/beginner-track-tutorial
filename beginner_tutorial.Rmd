@@ -382,22 +382,24 @@ plot(tabl2Way,main ='Proportion Bar Plot of Rain Occurance',xlab="Occurence of R
 ggplot(cardinal,aes(x= date ,y= heat_degDays))+ geom_point()
 ```
 
+- This is a scatter plot showing the distribution of Heat Accumulation Days across all years. 
+- The highest point is in January of each year. 
+- We observes sinusoidal nature
+
 
 
 #### How Would You Modify This?
 
-Let's say we wanted to plot Max tempurature as a scatter plot over time? How would you modify the code from the above block?
+Let's say we wanted to plot Max temperature as a scatter plot over time? How would you modify the code from the above block?
 
 ```{r}
+# second ggplot figure
 
+ggplot(cardinal,aes(x= date ,y= MaxT_degF))+ geom_point()
 ```
 
 
 
-
-- This is a scatter plot showing the distribution of Heat Accumulation Days across all years. 
-- The highest point is in January of each year. 
-- We observes sinusoidal nature
 
 
 #### plots with *Layers* in ggplot2
@@ -466,6 +468,7 @@ ggplot(cardinal,aes(x=AvgT_degF)) + geom_histogram(color="green",fill="orange")+
 
 # general plot
 TempPlot<-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point()
+TempPlot
 
 # coloring by month to observe trends
 ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
