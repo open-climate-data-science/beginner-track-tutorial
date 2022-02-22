@@ -31,7 +31,7 @@ We will be tackling these objectives:
 - *Recall* how to extract public data from a web portal (Cardinal) and import it into a  data software (R/RStudio)
 - *Demonstrate* understanding of dataset and statistical software through exploratory data analysis plots and numerical summaries
 
-## Meet Mr. Wuf!
+### Meet Mr. Wuf!
 
 Mr. Wuf works for Mount Mitchell State Park in Burnsville, NC and was recently asked by his boss to write a report summarizing rainfall and temperature data for 2021. This report will be used to help optimize 2022 event planning (e.g., fall color viewing) for park visitors and maintenance scheduling for park staff. Mr. Wuf’s wife, Mrs. Wuf, recently told him about the State Climate Office of North Carolina’s new Cardinal and Station Scout data portals. He agrees with her that it would be a great opportunity to check out these new, free tools. After some preliminary sleuthing around Station Scout, he discovered there was a National Weather Service Cooperative Observer Program (COOP; https://www.weather.gov/rah/coop) station on park property (station # 315923). How did he miss this? Once he downloads these data from Cardinal, Mr. Wuf plans to put the skills he learned in an online R programming course to the test for this real-world, work-related project.\
 
@@ -54,7 +54,11 @@ Open data research aims to transform research by pushing change in the way that 
 - You can easily share what you did with your colleagues, collaborators, etc. and it’s easy to make changes and rerun analysis with different settings.
 
 
-For more information go to this [website](https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html). 
+We note that reproducible science is when an authors such as Mr. Wuf would be able to provide all the necessary data and the R code to run their analysis again, re-creating the results. 
+
+When we combine these idea together - we get the goals for this tutorial. 
+
+For more information go to this [handbook](https://the-turing-way.netlify.app/reproducible-research/reproducible-research.html) on the subject. 
 
 ## R Basics 
 
@@ -213,7 +217,7 @@ length(iris)
 
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
 
-- This is a great resoucre for Mr.Wuf!
+- This is a great resource for Mr.Wuf!
 
 - We can implement code to import our external data
   - Or use the IMPORT Button in the Environment Panel!
@@ -344,6 +348,8 @@ tabl2Way
 ## Plotting Basics  
 
 
+### Base R Plotting
+
 - Simple visual of frequency count
 
 ```{r}
@@ -365,7 +371,7 @@ plot(cardinal$IfRain)
 plot(tabl2Way,main ='Proportion Bar Plot of Rain Occurance',xlab="Occurence of Rain (0-No, 1- Yes)",ylab = "Proportion of Days")
 ```
 
-
+### GGPLOT Plotting
 
 - Base R is limited in usage. 
 
@@ -404,30 +410,7 @@ ggplot(cardinal,aes(x= date ,y= MaxT_degF))+ geom_point()
 
 #### plots with *Layers* in ggplot2
 
-
-- Note we can save our plots with a variable name using the `<-` symbol 
-
-
-
-```{r}
-
-boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_boxplot()
-boxpRain
-```
-
-
-- This is a boxplot of total precipitation within each month. 
-- These dots indicate outliers in out data
-
-- We can add edits, with new layers,  to a specific ggplot2 object
-
-```{r}
-boxpRain+ylim(0, 1.25)+labs()
-```
-
-- By changing the range of the boxplots we can now see the distribution of the data more easily.
-
-- Observe correlation and possible trend numerical variables
+- We can also observe correlation and possible trend numerical variables
 
 - Using cheatsheet, we can find a lot more plot types and Layer Options!
 
@@ -476,7 +459,83 @@ ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
 
 - This scatterplot shows the  Maximum tempurature recorded in a day agasint the  minimum tempurature recorded. We note this variable is color coded by month. 
 
-- We can also use categorical variables on the x-axis, not just for coloring! 
+#### Categorical Variables on an Axis
+
+
+
+- Note we can save our plots with a variable name using the `<-` symbol 
+
+
+```{r}
+
+boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_boxplot()
+boxpRain
+```
+
+
+- This is a boxplot of total precipitation within each month. 
+- These dots indicate outliers in out data
+
+- We can add edits, with new layers,  to a specific ggplot2 object
+
+```{r}
+boxpRain+ylim(0, 1.25)+labs()
+```
+
+- By changing the range of the boxplots we can now see the distribution of the data more easily.
+
+- Only issue is that boxplots can be confusing
+
+
+- Mr. Wuf wants a more cumulative assessment for rainfall
+- We want to create a barplot with total Rain Per Month
+
+- This will require us to go outside of the `cardinal` data set we are working with!
+
+
+
+```{r}
+#creates a data frame for just this one bar plot!
+JustMonthRainTot<-cardinal%>%group_by(month)%>%summarise(Rain = sum(TPrep_in))
+str(JustMonthRainTot)
+```
+
+
+- With the new data set we created, `JustMonthRainTot`, we can now create the barplot!
+
+- Note the `stat="identity"` statement. 
+```{r}
+library(ggplot2)
+
+
+# below there is  an error in the code 
+#ggplot(JustMonthRainTot,aes(x=month,y=Rain))+geom_bar()
+
+
+```
+
+- What do we know about Bar Plots that could help us with this? **Text Poll Link Here**
+
+- We somehow need to change how our data is being plotted. Let's look at `?geom_bar`
+
+
+- Thanks to our investigation, Mr.Wuf knows he cannot use `geom_bar()` stated as is for this kind of plot. 
+
+
+```{r}
+ggplot(JustMonthRainTot,aes(x=month,y=Rain))+geom_col()+labs(y = "Total Rainfall (in)",x = "Month")
+```
+
+
+- To quickly show the power of *ggplot*, observe how we can create this plot without the tidyverse commands from a few boxed above: 
+
+```{r}
+ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_col()+labs(y = "Total Rainfall (in)",x = "Month")
+```
+
+
+
+- We can also use categorical variables on the x-axis, if they relate to a variable in our data frame!
 
 ```{r}
 
@@ -868,7 +927,7 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
 
 
 
-## Closing:
+## Closing & Resources
 
 - *Define* open data and reproducible science
 - *Describe* how to navigate important aspects of the R/RStudio user-interface
@@ -878,3 +937,8 @@ ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
 \center
 Any Questions? 
 \center
+
+### Resouces
+
+- For a A Hydrologists Guide to Open Science, from the HESS Journal, click [here](https://hess.copernicus.org/articles/26/647/2022/). 
+
