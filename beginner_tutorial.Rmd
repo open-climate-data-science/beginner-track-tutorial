@@ -61,8 +61,7 @@ For more information go to this [website](https://the-turing-way.netlify.app/rep
 ### The Panel Layout
 
 
-RStudio has four main panes each in a quadrant of your screen: *Console* , *Source Editor*, *Workspace Browser* (and History), and *Plots* (and Files, Packages, Help). These can also be adjusted under the ‘Preferences’ menu. Note that there might be subtle differences between RStudio installations on different operating systems. We will discuss each of the panes in turn.
-
+RStudio has four main panes each in a quadrant of your screen: *Console* , *Source Editor*, *Workspace Browser* (and History), and *Plots* (and Files, Packages, Help). These can also be adjusted under the ‘Preferences’ menu. 
 
 #### Console
 
@@ -70,6 +69,16 @@ The console is a great tool that is a calculator and let's us write / execute on
 
 
 We can also do one line commands and create variables thanks to the assign operator `<-`
+
+Try copying and pasting the code below: 
+
+```{r}
+# this comment will not run! 
+100+(124/2-10)
+
+sumOfNumbers<-3+1+4+1
+```
+
 
 #### Source Editor 
 
@@ -88,15 +97,17 @@ How would you start a new project? Simple:
 How do we execute code? 
 
 - Execute a single line (Run icon or *Ctrl+Enter*). Note that the cursor can be anywhere on the line and one does not need to highlight anything — do this for the code on line 2
-- Execute multiple lines (Highlight lines with the cursor, then Run icon or *Ctrl+Enter*) 
+
+- Execute multiple lines (Highlight lines with the cursor, then Run icon or *Ctrl+Enter*)
+
 - Execute the whole script (Source icon or *Ctrl+Shift+Enter*)
 
 
 What kind of files are we working with? 
 
-- Today, you will be working with a `.R` file. This allows us to write and execude code with comments. 
+- Today, you will be working with a `.R` file. This allows us to write and execute code with comments. 
 
-- This html file you may be viewing was created in another kind of a file called a `.Rmd` file. Here we can create documents or files with formatted text that you are reading **right now** - as wel as R code. 
+- This html file you may be viewing was created in another kind of a file called a `.Rmd` file. Here we can create documents or files with formatted text that you are reading **right now** - as well as R code. 
 
 
 #### Workspace 
@@ -109,6 +120,15 @@ The Environment or Workspace pane is very useful as it shows you what objects (s
 
 
 The last pane has many uses but for one - allows us to visualize plots, and see our current directory (set of folders where our programs live). 
+
+When you run a command for a certain plot - in the console or in a .R file from the Source Editor, it will show up in this panel. Run the code below to see this happen. (Note you don't need to understand this plot- we will explain plotting mechanics later!).
+
+```{r}
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+labs(x="Length", y="Width")
+```
+
+
+Here is a link to [more rescoures](https://datacarpentry.org/genomics-r-intro/01-introduction/index.html) for getting yourself familiarized with the layout of R.
 
 
 ### What are libraries?
@@ -127,11 +147,8 @@ Use this code for the first time
 
 - Once we have this package installed, all we need to do in the future on our machine is call it
   - This is done with the `library` command
-  - So at the start of your script you should: 
-  
-```{r}
-library(ggplot2)
-```
+  - So at the start of your script you should: `library(ggplot2)`
+
 
 
 
@@ -146,9 +163,16 @@ library(ggplot2)
 
 
 
-### Using data Inspection Functions
+### Using data Inspection Functions / functions in General 
 
 - A function is helper code that will take an input and give an output
+
+- One useful pair of functions we can use are:  `getwd()` and `setwd()`
+  -`getwd()` is a command that tells you the current file location, and where R will save  project files you create. 
+  -`setwd()` is a function that will let you input a file directory, in quoted string, inside the parenthesis 
+ 
+
+
 - `str` is a powerful function that allows you to determine what kind of variable we are working with
 - `length` is a function that tells you how long objects are Examples:
 
@@ -160,6 +184,12 @@ help(sum)
 
 ```{r}
 sum(2,2)
+
+
+str(2)
+
+str("two")
+
 wuf <- c(1,2,3)
 str(wuf)
 
@@ -174,11 +204,15 @@ str(iris)
 length(iris)
 ```
 
+ 
+
 
 ###  Importing From Cardinal
 
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
+
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
+
 - This is a great resoucre for Mr.Wuf!
 
 - We can implement code to import our external data
@@ -191,7 +225,7 @@ length(iris)
 
 Instead of going thru all the specifications and time to request data: 
 <center> 
-<font size="24">Download the [raw_cardinal_data.csv](raw_cardinal_data.csv). 
+<font size="24">Download the [raw_cardinal_data.xlsx](raw_cardinal_data.xlsx). 
  </font>
 \center
 
@@ -348,10 +382,29 @@ plot(tabl2Way,main ='Proportion Bar Plot of Rain Occurance',xlab="Occurence of R
 ggplot(cardinal,aes(x= date ,y= heat_degDays))+ geom_point()
 ```
 
-- This is a scatterplot showing the distribution of average leaf wetness across all years. 
-- The highest point is in January 2021.
 
-- Maybe show total precip vs month as bar chart.
+
+#### How Would You Modify This?
+
+Let's say we wanted to plot Max tempurature as a scatter plot over time? How would you modify the code from the above block?
+
+```{r}
+
+```
+
+
+
+
+- This is a scatter plot showing the distribution of Heat Accumulation Days across all years. 
+- The highest point is in January of each year. 
+- We observes sinusoidal nature
+
+
+#### plots with *Layers* in ggplot2
+
+
+- Note we can save our plots with a variable name using the `<-` symbol 
+
 
 
 ```{r}
@@ -359,21 +412,24 @@ ggplot(cardinal,aes(x= date ,y= heat_degDays))+ geom_point()
 boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_boxplot()
 boxpRain
 ```
+
+
 - This is a boxplot of total precipitation within each month. 
-- These dots indicate outliers in out data- we can make this plot easier to visualize manually.
-- We can add edits to a specific ggplot2 object
+- These dots indicate outliers in out data
+
+- We can add edits, with new layers,  to a specific ggplot2 object
 
 ```{r}
-boxpRain+ylim(0, 1.25)
+boxpRain+ylim(0, 1.25)+labs()
 ```
 
 - By changing the range of the boxplots we can now see the distribution of the data more easily.
 
 - Observe correlation and possible trend numerical variables
 
-- Using cheatsheet, we can find a lot more plot types and options!
+- Using cheatsheet, we can find a lot more plot types and Layer Options!
 
-  - Note the use of `labs` statement
+  - Note the use of `labs` statement, we will use that next!
 
 
 ```{r}
@@ -382,7 +438,7 @@ ggplot(cardinal,aes(x=date,y=AvgT_degF))+geom_line()+labs(title="Total Average T
 
 - This line graph shows the total average temperature by date. Temperature generally increases in the spring and summer months, with peaks and troughs within each month.
 
-- options are very versatile inside a `+geom_statement()`
+- options are very versatile inside a `+geom_statement()`, or a *plot layer*
 
 - We can use the cheatsheet to find out information about this 
 
@@ -395,7 +451,10 @@ ggplot(cardinal,aes(x=AvgT_degF)) + geom_histogram(color="green",fill="orange")+
 # title and all labels included in one more statement 
 ```
 
-- This histogram shows the average temperature over the days.
+- This histogram shows the average temperature given a count of days. 
+
+- Statistically we see this data is pretty right skewed- something we could look into is if this is the case for all months? (We will look into this later!)
+
 
 - One popular option is to color-code based off of a categorial / factor variable 
 
@@ -412,9 +471,9 @@ TempPlot<-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point()
 ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
 ```
 
-- This scatterplot shows the average humidity vs average leaf wetness by month. As humidity increases, average leaf wetness increases.
+- This scatterplot shows the  Maximum tempurature recorded in a day agasint the  minimum tempurature recorded. We note this variable is color coded by month. 
 
-- We can also use categorical variables on the x-axis
+- We can also use categorical variables on the x-axis, not just for coloring! 
 
 ```{r}
 
@@ -430,14 +489,24 @@ ggplot(cardinal,aes(x=month , y = TDiff_degF))+geom_boxplot()
 
 ### How could we make this boxplot better? 
 
+
 - Note we are looking at average daily tempurature
 
 ```{r}
 
 # + geom_boxplot is a great tool to observe spreads
 
-ggplot(cardinal,aes(x=month , y = AvgT_degF))+geom_boxplot()
+tempBox<- ggplot(cardinal,aes(x=month , y = AvgT_degF))+geom_boxplot()
+tempBox
 ```
+
+- We could add a title and approraite labels! 
+
+```{r}
+tempBox+labs(x="Month",y=" Average Tempurature (F)",title="Dsitribution of Tempuratures By Month")+theme_light()
+```
+
+
 
 - This is a boxplot showing the spread of average temperature across months. There are a few outliers in some months and the range of values is smaller in the summer.
 
@@ -476,8 +545,8 @@ ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
   
   scale_fill_viridis(name = "Temp. [ºF]", option = "C") +
   
-  labs(title = 'Temperatures at  Lake Wheeler',
-       subtitle = 'Mean temperatures (Fahrenheit) by month for 2020-2021\nData: ECONet Station', 
+  labs(title = 'Temperatures at  Burnsville NC',
+       subtitle = 'Mean temperatures (Fahrenheit) by month for 2020-2021\nData: COOP Station', 
        x = "Mean Temperature") +
   
   theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
@@ -493,14 +562,15 @@ ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
 
 
 
-
+Here we are applying very similar concepts to the tutorial above - with new a new data set! Here we are using an ECOnet station in Raliegh North Carolina. 
 
 
 ###  Importing From Cardinal
 
+
 - Cardinal is a high-powered, user-oriented, one-stop-shop for North Carolina weather and climate data housed at the North Carolina State Climate Office. 
 - Cardinal makes weather and climate data more accessible to users, with features and prompts that take the guesswork out of station and parameter identification and selection.
-- This is a great resoucre for Mr.Wuf!
+- This is a great resource for Mr.Wuf!
 
 - We can implement code to import our external data
   - Or use the IMPORT Button in the Environment Panel!
@@ -511,6 +581,7 @@ ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
 \center
 
 Instead of going thru all the specifications and time to request data: 
+
 <center> 
 <font size="24">Download the [cardinal_data.csv](cardinal_data.csv). 
  </font>
@@ -519,24 +590,6 @@ Instead of going thru all the specifications and time to request data:
 
 
 
-```{r}
-cardinal_raw <- read_csv("cardinal_data.csv", 
-     col_types = list(`Average Air Temperature (F)` = col_number(), 
-         `Maximum Air Temperature (F)` = col_number(), 
-         `Minimum Air Temperature (F)` = col_number(), 
-         `Average Experimental Leaf Wetness (mV)` = col_number(), 
-         `Total Precipitation (in)` = col_number(), 
-         `Average Relative Humidity (%)` = col_number(), 
-         `Average Soil Moisture (m3/m3)` = col_number(), 
-         `Average Soil Temperature (F)` = col_number(), 
-         `Average Solar Radiation (W/m2)` = col_number(), 
-         `Average Station Pressure (mb)` = col_number()))
-
-```
-
-
-
-Here we are using the ECOnet Data, making a paragraph. 
 
 
 
@@ -689,6 +742,7 @@ library(ggplot2)
 boxpRain<-ggplot(cardinal,aes(x=month,y=Tprep))+geom_boxplot()
 ```
 
+
 - These dots indicate outliers in out data- we can make this plot easier to visualize manually
 
 ```{r}
@@ -787,7 +841,7 @@ library(hrbrthemes)  ## plot theme
 
 ```{r}
 
-ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
+ggplot(cardinal, aes(x = AvgT, y = month, fill = ..x..)) +
   
   geom_density_ridges_gradient(scale = 2, rel_min_height = 0.01, gradient_lwd = 1.) +
   
@@ -797,8 +851,8 @@ ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
   
   scale_fill_viridis(name = "Temp. [ºF]", option = "C") +
   
-  labs(title = 'Temperatures at Burnsville Station',
-       subtitle = 'Mean temperatures (Fahrenheit) by month for 2019-2021\nData: COOP Station', 
+  labs(title = 'Temperatures at Lake Wheeler Station',
+       subtitle = 'Mean temperatures (Fahrenheit) by month for 2019-2021\nData: ECOnet Station', 
        x = "Mean Temperature") +
   
   theme_ridges(font_size = 13, grid = TRUE) + theme(axis.title.y = element_blank())
@@ -818,4 +872,6 @@ ggplot(cardinal, aes(x = AvgT_degF, y = month, fill = ..x..)) +
 - *Recall* how to extract public data from a web portal (Cardinal) and import it into a  data software (R/RStudio)
 - *Demonstrate* understanding of dataset and statistical software through exploratory data analysis plots and numerical summaries
 
-
+\center
+Any Questions? 
+\center
