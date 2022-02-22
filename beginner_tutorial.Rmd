@@ -503,7 +503,7 @@ str(JustMonthRainTot)
 
 - With the new data set we created, `JustMonthRainTot`, we can now create the barplot!
 
-- Note the `stat="identity"` statement. 
+
 ```{r}
 library(ggplot2)
 
@@ -585,8 +585,6 @@ tempBox+labs(x="Month",y=" Average Tempurature (F)",title="Dsitribution of Tempu
 - The below panel shows us librares we need
 
 ```{r}
-
-
 library(viridis)     ## color palette
 library(ggridges)    ## ridges
 library(hrbrthemes)  ## plot theme
