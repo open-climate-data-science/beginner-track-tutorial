@@ -44,6 +44,10 @@ Mr. Wuf works for Mount Mitchell State Park in Burnsville, NC and was recently a
 
 ### What is Open Data and Reproducible Science?
 
+- Without looking at the section below, how would you define open data?
+
+- How would you define reproducible (and open) science?
+
 Open data documents and shares research data openly for re-use.
 
 Open data research aims to transform research by pushing change in the way that research is carried out and disseminated by digital tools. Open data should be:
@@ -386,11 +390,11 @@ ggplot(cardinal,aes(x= date ,y= heat_degDays))+ geom_point()
 - The highest point is in January of each year. 
 - We observes sinusoidal nature
 
-
+- How could we improve this plot?
 
 #### How Would You Modify This?
 
-Let's say we wanted to plot Max temperature as a scatter plot over time? How would you modify the code from the above block?
+- Let's say we wanted to plot Max temperature as a scatter plot over time? How would you modify the code from the above block?
 
 ```{r}
 # second ggplot figure
@@ -489,11 +493,12 @@ ggplot(cardinal,aes(x=month , y = TDiff_degF))+geom_boxplot()
 
 - Box-plots are cumbersome and not super helpful in visalization. 
 
+- How could we improve this boxplot?
 
 ### How could we make this boxplot better? 
 
 
-- Note we are looking at average daily tempurature
+- Note we are looking at average daily temperature
 
 ```{r}
 
