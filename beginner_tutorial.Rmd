@@ -132,7 +132,8 @@ The last pane has many uses but for one - allows us to visualize plots, and see 
 When you run a command for a certain plot - in the console or in a .R file from the Source Editor, it will show up in this panel. Run the code below to see this happen. (Note you don't need to understand this plot- we will explain plotting mechanics later!).
 
 ```{r}
-ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+geom_point()+labs(x="Length", y="Width")
+ggplot(iris,aes(x=Sepal.Length,y=Sepal.Width))+
+  geom_point()+labs(x="Length", y="Width")
 ```
 
 
@@ -422,7 +423,9 @@ ggplot(cardinal,aes(x= date ,y= MaxT_degF))+ geom_point()
 
 
 ```{r}
-ggplot(cardinal,aes(x=date,y=AvgT_degF))+geom_line()+labs(title="Total Average Temperature by Date",y="Average Tempurature (F) ", x= "Date")
+ggplot(cardinal,aes(x=date,y=AvgT_degF))+
+  geom_line()+
+  labs(title="Total Average Temperature by Date",y="Average Tempurature (F) ", x= "Date")
 ```
 
 - This line graph shows the total average temperature by date. Temperature generally increases in the spring and summer months, with peaks and troughs within each month.
@@ -435,7 +438,9 @@ ggplot(cardinal,aes(x=date,y=AvgT_degF))+geom_line()+labs(title="Total Average T
 
 ```{r}
 
-ggplot(cardinal,aes(x=AvgT_degF)) + geom_histogram(color="green",fill="orange")+labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
+ggplot(cardinal,aes(x=AvgT_degF)) + 
+  geom_histogram(color="green",fill="orange")+
+  labs(x="Average Temperature", y="Day",title ="Histogram of Average Temperature in Lake Wheeler")
 
 # title and all labels included in one more statement 
 ```
@@ -454,11 +459,14 @@ ggplot(cardinal,aes(x=AvgT_degF)) + geom_histogram(color="green",fill="orange")+
 ```{r}
 
 # general plot
-TempPlot<-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point()
+TempPlot<-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+
+  geom_point()
+
 TempPlot
 
 # coloring by month to observe trends
-ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
+ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+
+  geom_point(aes(col=month))
 ```
 
 - This scatterplot shows the  Maximum tempurature recorded in a day agasint the  minimum tempurature recorded. We note this variable is color coded by month. 
@@ -472,7 +480,8 @@ ggplot(cardinal,aes(x=MinT_degF,y=MaxT_degF))+geom_point(aes(col=month))
 
 ```{r}
 
-boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_boxplot()
+boxpRain<-ggplot(cardinal,aes(x=month,y=TPrep_in))+
+  geom_boxplot()
 boxpRain
 ```
 
@@ -483,7 +492,8 @@ boxpRain
 - We can add edits, with new layers,  to a specific ggplot2 object
 
 ```{r}
-boxpRain+ylim(0, 1.25)+labs()
+boxpRain+ylim(0, 1.25)+
+  labs()
 ```
 
 - By changing the range of the boxplots we can now see the distribution of the data more easily.
@@ -500,7 +510,10 @@ boxpRain+ylim(0, 1.25)+labs()
 
 ```{r}
 #creates a data frame for just this one bar plot!
-JustMonthRainTot<-cardinal%>%group_by(month)%>%summarise(Rain = sum(TPrep_in))
+JustMonthRainTot<-cardinal%>%
+  group_by(month)%>%
+  summarise(Rain = sum(TPrep_in))
+
 str(JustMonthRainTot)
 ```
 
@@ -509,11 +522,10 @@ str(JustMonthRainTot)
 
 
 ```{r}
-library(ggplot2)
-
 
 # below there is  an error in the code 
-#ggplot(JustMonthRainTot,aes(x=month,y=Rain))+geom_bar()
+#ggplot(JustMonthRainTot,aes(x=month,y=Rain))+
+# geom_bar()
 
 
 ```
@@ -527,14 +539,18 @@ library(ggplot2)
 
 
 ```{r}
-ggplot(JustMonthRainTot,aes(x=month,y=Rain))+geom_col()+labs(y = "Total Rainfall (in)",x = "Month")
+ggplot(JustMonthRainTot,aes(x=month,y=Rain))+
+  geom_col()+
+  labs(y = "Total Rainfall (in)",x = "Month")
 ```
 
 
 - To quickly show the power of *ggplot*, observe how we can create this plot without the tidyverse commands from a few boxed above: 
 
 ```{r}
-ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_col()+labs(y = "Total Rainfall (in)",x = "Month")
+ggplot(cardinal,aes(x=month,y=TPrep_in))+
+  geom_col()+
+  labs(y = "Total Rainfall (in)",x = "Month")
 ```
 
 
@@ -545,7 +561,8 @@ ggplot(cardinal,aes(x=month,y=TPrep_in))+geom_col()+labs(y = "Total Rainfall (in
 
 # + geom_boxplot is a great tool to observe spreads
 
-ggplot(cardinal,aes(x=month , y = TDiff_degF))+geom_boxplot()
+ggplot(cardinal,aes(x=month , y = TDiff_degF))+
+  geom_boxplot()
 ```
 
 - This boxplot shows the range of temperature across each month. In the summer the range decreases, meaning there is less variation in temperature when compared to winter months.
@@ -563,14 +580,17 @@ ggplot(cardinal,aes(x=month , y = TDiff_degF))+geom_boxplot()
 
 # + geom_boxplot is a great tool to observe spreads
 
-tempBox<- ggplot(cardinal,aes(x=month , y = AvgT_degF))+geom_boxplot()
+tempBox<- ggplot(cardinal,aes(x=month , y = AvgT_degF))+
+  geom_boxplot()
 tempBox
 ```
 
 - We could add a title and approraite labels! 
 
 ```{r}
-tempBox+labs(x="Month",y=" Average Tempurature (F)",title="Dsitribution of Tempuratures By Month")+theme_light()
+tempBox+
+  labs(x="Month",y=" Average Tempurature (F)",title="Dsitribution of Tempuratures By Month")+
+  theme_light()
 ```
 
 
