@@ -965,3 +965,7 @@ Any Questions?
 
 - For a A Hydrologists Guide to Open Science, from the HESS Journal, click [here](https://hess.copernicus.org/articles/26/647/2022/). 
 
+### Survey 
+
+Thank you for attending the beginner track tutorial at the Open Climate Data Science Workshop. Please complete the voluntary feedback survey, linked [here](https://docs.google.com/forms/d/e/1FAIpQLSejTJjhvCLbCVKBotUa8VtDzYJBnMCilzPrB4VBzJrs7vXqIQ/viewform). The main purposes of this survey is to (1) determine we met specified teaching goals and (2) improve teaching materials for subsequent tutorial sessions.
+
