@@ -239,10 +239,7 @@ Instead of going thru all the specifications and time to request data:
 \center
 
 ```{r}
-raw_cardinal_data <- read_excel("raw_cardinal_data.xlsx", 
-    col_types = c("text", "numeric", "numeric", 
-        "numeric", "numeric", "numeric", 
-        "numeric", "numeric"))
+raw_cardinal_data <- raw_coop_data <- read_csv("raw_coop_data.csv")
 ```
 
 
