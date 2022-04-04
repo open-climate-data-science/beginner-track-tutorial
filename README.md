@@ -1,5 +1,7 @@
 # Tutorial Beginner Track
-Open Climate Data Science Workshop repository for the beginner track tutorial.
+
+Created by  [Nick Gawron](https://www.linkedin.com/in/ngawrondata/) and [Livia Popa](https://www.linkedin.com/in/livia-popa-23a018183/) for the 
+Open Climate Data Science Workshop hosted by the North Carolina State Climate Office in partnership with the North Carolina Institute for Climate Studies.
 
 We will be tackling these objectives:
 
