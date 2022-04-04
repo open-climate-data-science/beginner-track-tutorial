@@ -22,3 +22,12 @@ We will be tackling these objectives:
 - beginner_tutorial.Rmd: An R notebook file that has been used to formulate the Beginner tutorial. Can be knitted to create an HTML file versio of the completed tutorial. 
 - beginner_tutorial_student.ipynb: Student version of the tutorial with incomplete code blocks to be filled in during live coding sessions. Note this is a markdown notebook written for the R language.  
 - beginner_tutorial_teacher.ipynb: Commpleted Beginner Track tutorial with complied images and results included. Note this is a markdown notebook written for the R language.  
+
+
+## Binder Information 
+
+If you wish to see the tutorials as presented in the Open Climate Data Science Workshop please visting the tutorial page of the [website](https://open-climate-data-science.github.io/tutorials/). Here you will find two links for the Beginner Track:
+    -  Student: A notebook with incomplete code blocks that was accessed by partipants
+    -  Teacher: A helpful reference guide with completed code from the tutorial
+   
+Please note a recording of the tutorial is also attached on the referenced website page. 
