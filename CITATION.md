@@ -1,7 +1,7 @@
 
 # To cite the NCSCO Workshop Beginner Track Tutorial , please use:
 
-> Gawron, N. C., and Popa, L. O., 2022. *NCSCO Workshop Beginner Track Tutorial*. North Carolina State University, College of Sciences, Raleigh, NC. Available online: [github.com/tutorial-beginner-track](https://github.com/open-climate-data-science/tutorial-beginner-track)
+> Popa, L. O.,Gawron, N. C., Saia, S. M., and Rao, Y. , 2022. *NCSCO Workshop Beginner Track Tutorial*. North Carolina State University, College of Sciences, Raleigh, NC. Available online: [github.com/tutorial-beginner-track](https://github.com/open-climate-data-science/tutorial-beginner-track)
 
 
 #  NCSCO Workshop Advanced Track Tutorial License
